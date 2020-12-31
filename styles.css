@@ -1,0 +1,17 @@
+body {
+  background-color: black;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+}
+
+.prime-container {
+  width: 800px;
+  height: 800px;
+  background-color: white;
+  margin: auto;
+}
