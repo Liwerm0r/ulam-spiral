@@ -35,6 +35,9 @@ const ctx = canvas.getContext('2d');
 // width and height of the pixel in this case - 1px
 const pixelX = 1;
 const pixelY = 1;
+// set number of pixels on the board
+const totalPixels = canvas.width * canvas.height;
+
 
 // set color of the pixels
 ctx.fillStyle = 'black';
@@ -46,12 +49,40 @@ pointer = {
 }
 
 // draw first pixel
-while ( pointer.number < 200 ) {
-  if ( isPrime(pointer.number)) {
-    ctx.fillRect(pointer.x, pointer.y, pixelX, pixelY);
-  }
-  // setTimeout(function () {
-  //   translateRight(pointer);
-  // }, 10);
+ctx.fillRect(pointer.x, pointer.y, pixelX, pixelY);
+// start seeking for prime numbers > 1
+var spiralLength = 1
+while ( pointer.number < totalPixels ) {
 
+  for ( var i = 0; i < spiralLength; i ++) {
+    translateRight(pointer);
+    if ( isPrime(pointer.number) ) {
+      ctx.fillRect(pointer.x, pointer.y, pixelX, pixelY);
+
+    }
+  }
+
+  for ( var i = 0; i < spiralLength; i ++) {
+    translateUp(pointer);
+    if ( isPrime(pointer.number) ) {
+      ctx.fillRect(pointer.x, pointer.y, pixelX, pixelY);
+      ctx.save();
+    }
+  }
+  spiralLength++;
+
+  for ( var i = 0; i < spiralLength; i ++) {
+    translateLeft(pointer);
+    if ( isPrime(pointer.number) ) {
+      ctx.fillRect(pointer.x, pointer.y, pixelX, pixelY);
+    }
+  }
+
+  for ( var i = 0; i < spiralLength; i ++) {
+    translateDown(pointer);
+    if ( isPrime(pointer.number) ) {
+      ctx.fillRect(pointer.x, pointer.y, pixelX, pixelY);
+    }
+  }
+  spiralLength++;
 }
