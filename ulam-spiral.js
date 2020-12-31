@@ -19,7 +19,7 @@ function translateDown(pointer) {
 }
 
 function isPrime(number) {
-  for ( var i = 2; i <= number / 2; i++ ) {
+  for ( var i = 2; i <= Math.sqrt(number); i++ ) {
     if ( number % i === 0 ) {
       return false;
     }
@@ -30,39 +30,31 @@ function isPrime(number) {
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////// SCRIPT ////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
-
 const canvas = $("#prime-container")[0];
 const ctx = canvas.getContext('2d');
 // width and height of the drawing object will be represented as
 // x and y axis in Cartesian coordinate system
-
 // width and height of the pixel in this case - 1px
-const pixelWidth = 2;
-const pixelHeight = 2;
-// set number of pixels on the board
-const totalPixels = (canvas.width * canvas.height) / (pixelWidth * pixelHeight);
-
-
+const pixelWidth = 1;
+const pixelHeight = pixelWidth; // it's a square
 // set color of the pixels
 ctx.fillStyle = 'black';
+// set number of pixels on the board
+const totalPixels = (canvas.width * canvas.height) / (pixelWidth * pixelHeight);
 // Set pointer to the centre of the container
 pointer = {
   x: Math.floor(canvas.width / 2),
   y: Math.floor(canvas.height / 2),
   number: 1 // determine which number is currently represents
 }
-
 // start seeking for prime numbers > 1
 var spiralLength = 1;
-totalPrimes = 0;
 while ( pointer.number < totalPixels ) {
 
   for ( var i = 0; i < spiralLength; i ++) {
     translateRight(pointer);
     if ( isPrime(pointer.number) ) {
       ctx.fillRect(pointer.x, pointer.y, pixelWidth, pixelHeight);
-      totalPrimes++;
     }
   }
 
@@ -70,7 +62,6 @@ while ( pointer.number < totalPixels ) {
     translateUp(pointer);
     if ( isPrime(pointer.number) ) {
       ctx.fillRect(pointer.x, pointer.y, pixelWidth, pixelHeight);
-      totalPrimes++;
     }
   }
   spiralLength++;
@@ -79,7 +70,6 @@ while ( pointer.number < totalPixels ) {
     translateLeft(pointer);
     if ( isPrime(pointer.number) ) {
       ctx.fillRect(pointer.x, pointer.y, pixelWidth, pixelHeight);
-      totalPrimes++;
     }
   }
 
@@ -87,10 +77,7 @@ while ( pointer.number < totalPixels ) {
     translateDown(pointer);
     if ( isPrime(pointer.number) ) {
       ctx.fillRect(pointer.x, pointer.y, pixelWidth, pixelHeight);
-      totalPrimes++;
     }
   }
   spiralLength++;
 }
-
-console.log("Total primes: " + totalPrimes + ", among " + pointer.number + " numbers.");
