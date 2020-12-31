@@ -9,9 +9,7 @@ h1 {
   color: white;
 }
 
-.prime-container {
-  width: 800px;
-  height: 800px;
+#prime-container {
   background-color: white;
   margin: auto;
 }
